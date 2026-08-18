@@ -24,7 +24,7 @@ final class VesselsPage {
 	 * Handle POST and GET actions before any output, so redirects work.
 	 */
 	public function handleActions(): void {
-		if ( ! isset( $_REQUEST['page'] ) || AdminMenu::SLUG !== $_REQUEST['page'] ) {
+		if ( ! isset( $_REQUEST['page'] ) || AdminMenu::VESSELS_SLUG !== $_REQUEST['page'] ) {
 			return;
 		}
 
@@ -55,7 +55,7 @@ final class VesselsPage {
 		wp_safe_redirect(
 			add_query_arg(
 				[
-					'page'       => AdminMenu::SLUG,
+					'page'       => AdminMenu::VESSELS_SLUG,
 					'mup_notice' => $notice,
 				],
 				admin_url( 'admin.php' )
@@ -197,7 +197,7 @@ final class VesselsPage {
 									</span>
 								</td>
 								<td>
-									<a href="<?php echo esc_url( add_query_arg( [ 'page' => AdminMenu::SLUG, 'edit' => $vessel->id ], admin_url( 'admin.php' ) ) ); ?>">
+									<a href="<?php echo esc_url( add_query_arg( [ 'page' => AdminMenu::VESSELS_SLUG, 'edit' => $vessel->id ], admin_url( 'admin.php' ) ) ); ?>">
 										<?php esc_html_e( 'Edit', 'marine-unit-plugin' ); ?>
 									</a>
 									|
@@ -209,7 +209,7 @@ final class VesselsPage {
 									$url    = wp_nonce_url(
 										add_query_arg(
 											[
-												'page'       => AdminMenu::SLUG,
+												'page'       => AdminMenu::VESSELS_SLUG,
 												'mup_action' => $toggle,
 												'vessel_id'  => $vessel->id,
 											],
@@ -226,7 +226,7 @@ final class VesselsPage {
 					</table>
 
 					<h3><?php echo $edit_item ? esc_html__( 'Edit vessel', 'marine-unit-plugin' ) : esc_html__( 'Add a vessel', 'marine-unit-plugin' ); ?></h3>
-					<form method="post" action="<?php echo esc_url( admin_url( 'admin.php?page=' . AdminMenu::SLUG ) ); ?>">
+					<form method="post" action="<?php echo esc_url( admin_url( 'admin.php?page=' . AdminMenu::VESSELS_SLUG ) ); ?>">
 						<?php wp_nonce_field( self::NONCE ); ?>
 						<input type="hidden" name="mup_action" value="<?php echo $edit_item ? 'update_vessel' : 'add_vessel'; ?>" />
 						<?php if ( $edit_item ) : ?>
@@ -269,7 +269,7 @@ final class VesselsPage {
 
 						<?php submit_button( $edit_item ? __( 'Save vessel', 'marine-unit-plugin' ) : __( 'Add vessel', 'marine-unit-plugin' ) ); ?>
 						<?php if ( $edit_item ) : ?>
-							<a class="button-link" href="<?php echo esc_url( admin_url( 'admin.php?page=' . AdminMenu::SLUG ) ); ?>">
+							<a class="button-link" href="<?php echo esc_url( admin_url( 'admin.php?page=' . AdminMenu::VESSELS_SLUG ) ); ?>">
 								<?php esc_html_e( 'Cancel', 'marine-unit-plugin' ); ?>
 							</a>
 						<?php endif; ?>
@@ -298,7 +298,7 @@ final class VesselsPage {
 									$url = wp_nonce_url(
 										add_query_arg(
 											[
-												'page'       => AdminMenu::SLUG,
+												'page'       => AdminMenu::VESSELS_SLUG,
 												'mup_action' => 'remove_type',
 												'type_slug'  => $slug,
 											],
@@ -317,7 +317,7 @@ final class VesselsPage {
 					</table>
 
 					<h3><?php esc_html_e( 'Add a patrol type', 'marine-unit-plugin' ); ?></h3>
-					<form method="post" action="<?php echo esc_url( admin_url( 'admin.php?page=' . AdminMenu::SLUG ) ); ?>">
+					<form method="post" action="<?php echo esc_url( admin_url( 'admin.php?page=' . AdminMenu::VESSELS_SLUG ) ); ?>">
 						<?php wp_nonce_field( self::NONCE ); ?>
 						<input type="hidden" name="mup_action" value="add_type" />
 						<p>

@@ -54,3 +54,34 @@
 .mup-admin a.mup-danger:focus {
 	color: #8a2424;
 }
+
+/* Mission reports list */
+
+.mup-admin .mup-band {
+	display: inline-block;
+	padding: 2px 9px;
+	border-radius: 10px;
+	color: #fff;
+	font-size: 12px;
+	font-weight: 600;
+	white-space: nowrap;
+}
+
+.mup-admin .mup-status--sent {
+	background: #edfaef;
+	color: #14682a;
+	box-shadow: inset 0 0 0 1px #a7d8b3;
+}
+
+.mup-admin .mup-status--failed {
+	background: #fdeceb;
+	color: #8a2424;
+	box-shadow: inset 0 0 0 1px #e6a5a3;
+}
+
+.mup-admin .mup-status--no_address,
+.mup-admin .mup-status--none {
+	background: #fdf5e3;
+	color: #7a5406;
+	box-shadow: inset 0 0 0 1px #e2c88a;
+}

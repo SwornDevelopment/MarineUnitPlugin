@@ -3,7 +3,7 @@
  * Plugin Name:       Marine Unit
  * Plugin URI:        https://github.com/SwornDevelopment/MarineUnitPlugin
  * Description:       Patrol calendar with crew sign-ups and waitlisting, plus a digital Marine Unit Mission Report.
- * Version:           0.1.0
+ * Version:           0.5.0
  * Requires at least: 6.5
  * Requires PHP:      8.1
  * Author:            Sworn Development
@@ -21,7 +21,7 @@ namespace MarineUnit;
 
 defined( 'ABSPATH' ) || exit;
 
-const VERSION = '0.1.0';
+const VERSION = '0.5.0';
 
 /**
  * Database schema version. Bump whenever Database\Schema changes so that

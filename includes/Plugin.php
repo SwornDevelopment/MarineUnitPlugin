@@ -11,8 +11,13 @@ namespace MarineUnit;
 
 use MarineUnit\Admin\AdminMenu;
 use MarineUnit\Database\Schema;
+use MarineUnit\Frontend\Ajax;
+use MarineUnit\Frontend\Assets;
+use MarineUnit\Frontend\ReportAjax;
+use MarineUnit\Frontend\Shortcodes;
 use MarineUnit\Patrols\ConflictChecker;
 use MarineUnit\Patrols\PatrolRepository;
+use MarineUnit\Reports\ReportRepository;
 use MarineUnit\Signups\SignupRepository;
 use MarineUnit\Signups\SignupService;
 use MarineUnit\Vessels\VesselRepository;
@@ -77,6 +82,7 @@ final class Plugin {
 		// Post types must be registered on `init` — registering earlier trips
 		// WordPress's own _doing_it_wrong notice.
 		add_action( 'init', [ PatrolRepository::class, 'registerPostType' ] );
+		add_action( 'init', [ ReportRepository::class, 'registerPostType' ] );
 
 		// Deleting a patrol must not strand its crew rows.
 		add_action(
@@ -97,6 +103,10 @@ final class Plugin {
 		add_filter( 'map_meta_cap', [ $this, 'mapMetaCap' ], 10, 4 );
 
 		( new UserProfile() )->register();
+		( new Assets() )->register();
+		( new Shortcodes() )->register();
+		( new Ajax() )->register();
+		( new ReportAjax() )->register();
 
 		if ( is_admin() ) {
 			( new AdminMenu() )->register();

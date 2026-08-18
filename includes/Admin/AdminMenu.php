@@ -24,16 +24,19 @@ final class AdminMenu {
 
 	private VesselsPage $vessels;
 	private SettingsPage $settings;
+	private ReportsPage $reports;
 
 	public function __construct() {
 		$this->vessels  = new VesselsPage();
 		$this->settings = new SettingsPage();
+		$this->reports  = new ReportsPage();
 	}
 
 	public function register(): void {
 		add_action( 'admin_menu', [ $this, 'addMenus' ] );
 		add_action( 'admin_init', [ $this->settings, 'registerSettings' ] );
 		add_action( 'admin_init', [ $this->vessels, 'handleActions' ] );
+		add_action( 'admin_init', [ $this->reports, 'handleActions' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue' ] );
 		add_action( 'admin_notices', [ $this, 'configurationNotice' ] );
 	}
@@ -42,11 +45,24 @@ final class AdminMenu {
 		add_menu_page(
 			__( 'Marine Unit', 'marine-unit-plugin' ),
 			__( 'Marine Unit', 'marine-unit-plugin' ),
-			Roles::MANAGE_VESSELS,
+			// Everyone who can file a report needs the menu; the Vessels
+			// submenu below stays restricted.
+			Roles::VIEW_OWN_REPORTS,
 			self::SLUG,
-			[ $this->vessels, 'render' ],
+			[ $this->reports, 'render' ],
 			'dashicons-sos',
 			26
+		);
+
+		// The parent slug renders Mission Reports, so relabel that first entry
+		// and give Vessels its own slug.
+		add_submenu_page(
+			self::SLUG,
+			__( 'Mission Reports', 'marine-unit-plugin' ),
+			__( 'Mission Reports', 'marine-unit-plugin' ),
+			Roles::VIEW_OWN_REPORTS,
+			self::SLUG,
+			[ $this->reports, 'render' ]
 		);
 
 		add_submenu_page(
@@ -54,7 +70,7 @@ final class AdminMenu {
 			__( 'Vessels', 'marine-unit-plugin' ),
 			__( 'Vessels', 'marine-unit-plugin' ),
 			Roles::MANAGE_VESSELS,
-			self::SLUG,
+			self::VESSELS_SLUG,
 			[ $this->vessels, 'render' ]
 		);
 
